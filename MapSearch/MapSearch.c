@@ -88,7 +88,6 @@ int main()
 					return -1;
 				}
 				memcpy( &chkStr[chkNum][0], string, D_STRING_LENTH_MAX );
-				printf("check string[%d] = %s\n", chkNum, &chkStr[chkNum][0]);
 				chkNum++;
 
 				if (chkNum >= chkCnt) {
@@ -98,7 +97,7 @@ int main()
 
 			/** STEP4: get result */
 			case D_INPUT_STEP_END:
-				printf("Result:\n ");
+				printf("Result:\n");
 
 				initMapping();
 				// set Map
@@ -172,17 +171,13 @@ int checkStrFromMap( char *str, int size)
 	count = 0;
 	p = NULL;
 	
-	printf("start...");
-	
-	printf("check string = %s, size = %d, result:", str, size);
+	printf("check string = %s\t size = %d\t result:", str, size);
 	for ( i = 0; i < D_SAMPLE_ROM_NUM; i++ ) {
 		for ( j = 0; j < D_SAMPLE_COLUMN_NUM; j++ ) {
-			p = &(stMap[i][j]);
-			if ( p->sub ==  str[0] )
+			if ( stMap[i][j].sub ==  str[0] )
 			{
 				// up
-				p = (ST_SAMPLE_NODE *)p->up;
-				count = 1;
+				p = (ST_SAMPLE_NODE *)stMap[i][j].up;
 				while( p != NULL && p->sub == str[count] )
 				{
 					count++;
@@ -194,7 +189,7 @@ int checkStrFromMap( char *str, int size)
 				}
 
 				// down
-				p = (ST_SAMPLE_NODE *)p->down;
+				p = (ST_SAMPLE_NODE *)stMap[i][j].down;
 				count = 1;
 				while( p != NULL && p->sub == str[count] )
 				{
@@ -207,7 +202,7 @@ int checkStrFromMap( char *str, int size)
 				}
 			
 				// left
-				p = (ST_SAMPLE_NODE *)p->left;
+				p = (ST_SAMPLE_NODE *)stMap[i][j].left;
 				count = 1;
 				while( p != NULL && p->sub == str[count] )
 				{
@@ -219,8 +214,8 @@ int checkStrFromMap( char *str, int size)
 					}
 				}
 
-				// left
-				p = (ST_SAMPLE_NODE *)p->right;
+				// right
+				p = (ST_SAMPLE_NODE *)stMap[i][j].right;
 				count = 1;
 				while( p != NULL && p->sub == str[count] )
 				{
@@ -234,6 +229,7 @@ int checkStrFromMap( char *str, int size)
 			}
 		}
 	}
+	
 
 	// not found
 	return 0;
