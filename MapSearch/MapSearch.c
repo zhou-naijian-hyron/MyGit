@@ -10,10 +10,10 @@ typedef struct ST_SAMPLE_NODE_t{
 	char	*right;
 }ST_SAMPLE_NODE;
 
-#define		D_SAMPLE_COLUMN_NUM		(10)
-#define		D_SAMPLE_ROM_NUM		(10)
-#define		D_STRING_LENTH_MAX		(10)
-#define		D_CHECK_NUM_MAX			(10)
+#define		D_SAMPLE_COLUMN_NUM		(10)    /** < Sample Columns */
+#define		D_SAMPLE_ROM_NUM		(10)    /** < Sample Rows */
+#define		D_STRING_LENTH_MAX		(10)    /** < String Size */
+#define		D_CHECK_NUM_MAX			(10)    /** < Check MaxTimes */
 
 typedef enum {
 	D_INPUT_STEP_SAMPLE = 0,	/** < STEP1: input Sample */
@@ -23,9 +23,11 @@ typedef enum {
 }D_INPUT_STEP;
 
 
-
+// SampleArray
 char chMap[D_SAMPLE_ROM_NUM][D_SAMPLE_COLUMN_NUM];
+// CheckArray
 char chkStr[D_CHECK_NUM_MAX][D_STRING_LENTH_MAX + 1];
+// Map
 ST_SAMPLE_NODE stMap[D_SAMPLE_ROM_NUM][D_SAMPLE_COLUMN_NUM];
 
 
@@ -55,10 +57,13 @@ int main()
 				printf("Please input Sample [%d] > ", rowNum);
 				scanf( "%s", string);
 
+                // Size Check
 				if (strlen(string) != D_STRING_LENTH_MAX) {
 					printf("Size Error!!! string = %s\n", string);
 					return -1;
 				}
+
+                // Set SampleArray
 				memcpy( &chMap[rowNum][0], string, D_SAMPLE_COLUMN_NUM );
 				rowNum++;
 
@@ -72,6 +77,7 @@ int main()
 				printf("Please input Check Times > ");
 				scanf( "%d", &chkCnt);
 
+                // CheckTimes Check
 				step = D_INPUT_STEP_CHKSTR;
 				if (chkCnt > D_CHECK_NUM_MAX) {
 					return -1;
@@ -83,10 +89,13 @@ int main()
 				printf("Please input Check String > ");
 				scanf( "%s", string);
 
+                // Size Check
 				if (strlen(string) > D_STRING_LENTH_MAX) {
 					printf("Check String Size Error!!! string = %s\n", string);
 					return -1;
 				}
+
+                // Set CheckArray
 				memcpy( &chkStr[chkNum][0], string, D_STRING_LENTH_MAX );
 				chkNum++;
 
@@ -99,13 +108,17 @@ int main()
 			case D_INPUT_STEP_END:
 				printf("Result:\n");
 
+                // Map init
 				initMapping();
-				// set Map
+
+				// Set Map
 				for ( i = 0; i < D_SAMPLE_ROM_NUM; i++ ) {
 					for ( j = 0; j < D_SAMPLE_COLUMN_NUM; j++ ) {
 						stMap[i][j].sub = chMap[i][j];
 					}
 				}
+
+                // In Map, Search CheckArray
 				for ( i = 0; i < chkCnt; i++ ) {
 					if ( checkStrFromMap( chkStr[i], strlen(chkStr[i])) == 1 ) {
 						printf("Yes\n");
@@ -123,6 +136,7 @@ int main()
 	}
 }
 
+// Map init
 void initMapping( void )
 {
 	int i, j;
@@ -164,6 +178,11 @@ void initMapping( void )
 	}
 }
 
+// In Map, Search CheckArray
+// [IN] *str : check string
+// [IN] size : string size
+// return 1 : Found
+//        0 : Unfound
 int checkStrFromMap( char *str, int size)
 {
 	int i, j, count;
@@ -176,6 +195,11 @@ int checkStrFromMap( char *str, int size)
 		for ( j = 0; j < D_SAMPLE_COLUMN_NUM; j++ ) {
 			if ( stMap[i][j].sub ==  str[0] )
 			{
+                // when size = 1, Found
+                if ( size == 1 ) {
+                    return 1;
+                }
+
 				// up
 				p = (ST_SAMPLE_NODE *)stMap[i][j].up;
 				while( p != NULL && p->sub == str[count] )
@@ -200,7 +224,7 @@ int checkStrFromMap( char *str, int size)
 						return 1;
 					}
 				}
-			
+
 				// left
 				p = (ST_SAMPLE_NODE *)stMap[i][j].left;
 				count = 1;
@@ -229,7 +253,6 @@ int checkStrFromMap( char *str, int size)
 			}
 		}
 	}
-	
 
 	// not found
 	return 0;
