@@ -57,13 +57,13 @@ int main()
 				printf("Please input Sample [%d] > ", rowNum);
 				scanf( "%s", string);
 
-                // Size Check
+				// Size Check
 				if (strlen(string) != D_STRING_LENTH_MAX) {
 					printf("Size Error!!! string = %s\n", string);
 					return -1;
 				}
 
-                // Set SampleArray
+				// Set SampleArray
 				memcpy( &chMap[rowNum][0], string, D_SAMPLE_COLUMN_NUM );
 				rowNum++;
 
@@ -77,7 +77,7 @@ int main()
 				printf("Please input Check Times > ");
 				scanf( "%d", &chkCnt);
 
-                // CheckTimes Check
+				// CheckTimes Check
 				step = D_INPUT_STEP_CHKSTR;
 				if (chkCnt > D_CHECK_NUM_MAX) {
 					return -1;
@@ -89,13 +89,13 @@ int main()
 				printf("Please input Check String > ");
 				scanf( "%s", string);
 
-                // Size Check
+				// Size Check
 				if (strlen(string) > D_STRING_LENTH_MAX) {
 					printf("Check String Size Error!!! string = %s\n", string);
 					return -1;
 				}
 
-                // Set CheckArray
+				// Set CheckArray
 				memcpy( &chkStr[chkNum][0], string, D_STRING_LENTH_MAX );
 				chkNum++;
 
@@ -108,7 +108,7 @@ int main()
 			case D_INPUT_STEP_END:
 				printf("Result:\n");
 
-                // Map init
+				// Map init
 				initMapping();
 
 				// Set Map
@@ -118,7 +118,7 @@ int main()
 					}
 				}
 
-                // In Map, Search CheckArray
+				// In Map, Search CheckArray
 				for ( i = 0; i < chkCnt; i++ ) {
 					if ( checkStrFromMap( chkStr[i], strlen(chkStr[i])) == 1 ) {
 						printf("Yes\n");
@@ -195,10 +195,10 @@ int checkStrFromMap( char *str, int size)
 		for ( j = 0; j < D_SAMPLE_COLUMN_NUM; j++ ) {
 			if ( stMap[i][j].sub ==  str[0] )
 			{
-                // when size = 1, Found
-                if ( size == 1 ) {
-                    return 1;
-                }
+				// when size = 1, Found
+				if ( size == 1 ) {
+					return 1;
+				}
 
 				// up
 				p = (ST_SAMPLE_NODE *)stMap[i][j].up;
