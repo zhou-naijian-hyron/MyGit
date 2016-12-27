@@ -1,0 +1,42 @@
+-------------------------------------------------------------
+loop=10
+mcc@ubuntu:~/workspace/test$ ./fprint_test
+start : 1479291317.915429
+end   : 1479291317.916116
+
+= 687um
+
+mcc@ubuntu:~/workspace/test$ ./fprint_test2
+start : 1479291335.962545
+end   : 1479291335.963524
+
+= 979um
+
+mcc@ubuntu:~/workspace/test$ ./write_test 
+start : 1479291344.211871
+end   : 1479291344.212178
+
+= 307um
+
+-------------------------------------------------------------
+loop=1000
+mcc@ubuntu:~/workspace/test$ ./fprint_test
+start : 1479293090.697224
+end   : 1479293090.698363
+
+= 1139um
+
+mcc@ubuntu:~/workspace/test$ ./fprint_test2 
+start : 1479293121.471767
+end   : 1479293121.513318
+
+= 41551um
+
+mcc@ubuntu:~/workspace/test$ ./write_test 
+start : 1479293739.288940
+end   : 1479293739.291261
+
+= 2321um
+
+-------------------------------------------------------------
+
