@@ -3,6 +3,7 @@
 start=$(date "+%s")
 echo "start = $start"
 
+## 時間間隔の計算
 getNowtime()
 {
 	nowtime=$(date "+%s")
@@ -13,6 +14,7 @@ getNowtime()
 	fi
 }
 
+## 毎２秒に、echoで出力
 while true
 do
 	echo "111111111"

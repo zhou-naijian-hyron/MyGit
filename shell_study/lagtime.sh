@@ -1,5 +1,6 @@
 #!/bin/sh
 
+## 時間間隔の計算
 start=$(date "+%s")
 echo "start = $start"
 
